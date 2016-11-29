@@ -17,6 +17,17 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Media files
+*.mp3
+
+# Class files
+bin/*
+
+# Eclipse things
+.classpath
+.settings/*
+.project
+
 # =========================
 # Operating System Files
 # =========================

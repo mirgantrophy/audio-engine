@@ -13,10 +13,18 @@ import javafx.scene.media.MediaPlayer;
 
 public class AudioWatchDog
 {
+	private MediaPlayer mediaPlayer;
+	private Media audio;
 	private String currentPath;
-	private String[] pathList = {"01-opening-part-1.mp3", "02-opening-part-2-.mp3", "03-pallet-town-s-theme.mp3"};
-	public AudioWatchDog()
+	private String[] pathList = {"/audio/01-opening-part-1-.mp3", "/audio/02-opening-part-2-.mp3", "/audio/03-pallet-town-s-theme.mp3", "/audio/04-professor-oak", "/audio/05-oak-research-lab.mp3"};
+	public AudioWatchDog(int index)
 	{
+		System.out.println("setting path");
+		currentPath = AudioWatchDog.class.getResource(pathList[index]).toString();
+		System.out.println("creating media object");
+		audio = new Media(currentPath);
+		System.out.println("creating media Player object");
+		mediaPlayer = new MediaPlayer(audio);
 		System.out.println("Creating new audio watchdog");
 	}
 	
@@ -29,4 +37,10 @@ public class AudioWatchDog
 	{
 		return currentPath;
 	}
+	
+	public void Play()
+	{
+		mediaPlayer.play();
+	}
 }
+

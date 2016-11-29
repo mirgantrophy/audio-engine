@@ -1,9 +1,8 @@
 package main;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.mirgantrophy.audioengine.handler.AudioWatchDog;
 
 import javafx.application.Application;
 import javafx.scene.media.Media;
@@ -13,24 +12,24 @@ import javafx.util.Duration;
 
 public class AudioEngine extends Application
 {
-	private ArrayList musicFiles;
-	private static MediaPlayer mediaPlayer; //this will get garbage collected if instantiated in the start method...
+	private static AudioWatchDog awd;
+	//private static MediaPlayer mediaPlayer; //this will get garbage collected if instantiated in the start method...
 	public static void main(String[] args) 
-	{
+	{	
 		launch(args);
 	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception 
 	{	
-		Scanner scan = new Scanner(System.in);
+		awd = new AudioWatchDog(0);
+		awd.Play();
+		/*Scanner scan = new Scanner(System.in);
 		System.out.print("Please enter identifier: ");
 		String response = scan.nextLine();
 		switch(response)
 		{
 		case "01":
-			//perhaps store the file paths in an array list?
-			//String path = AudioEngine.class.getResource("/audio/02-opening-part-2-.mp3").toString();
 			break;
 		case "02":
 			String path = AudioEngine.class.getResource("/audio/02-opening-part-2-.mp3").toString(); //use getResource for referencing items INSIDE
@@ -147,10 +146,8 @@ public class AudioEngine extends Application
 		default:
 			System.out.println("invalid identifier");
 		}
-		System.out.println("Program Closing...");
-		scan.close();
-		System.exit(0);
-	}
+		System.out.println("Program Closing..."); */
+	} 
 }
 
 //The following code is for debugging purpose only

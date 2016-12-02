@@ -8,54 +8,36 @@
  */
 package com.mirgantrophy.audioengine.handler;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 public class AudioWatchDog
 {
-	
-	//why not create a list for each mediaplayer
-	private MediaPlayer mediaPlayer; //plays our song
-	private Media audio; //contains the song we want to play
-	private String currentPath; //simply a pointer to the song we are currently referencing
-	private String[] pathList = {"/audio/01-opening-part-1-.mp3", "/audio/02-opening-part-2-.mp3", "/audio/03-pallet-town-s-theme.mp3", "/audio/04-professor-oak", "/audio/05-oak-research-lab.mp3"};
-	public AudioWatchDog(int index) //we make a new AWD which will play a song
+	private List<MediaPlayer> players;
+	private MediaView viewer;
+	private String[] pathList = {"/audio/01-opening-part-1-.mp3", "/audio/02-opening-part-2-.mp3", "/audio/03-pallet-town-s-theme.mp3", "/audio/04-professor-oak.mp3", "/audio/05-oak-research-lab.mp3"};
+	public AudioWatchDog()
 	{
-		System.out.println("setting path");
-		currentPath = AudioWatchDog.class.getResource(pathList[index]).toString();
-		System.out.println("creating media object");
-		audio = new Media(currentPath);
-		System.out.println("creating media Player object");
-		mediaPlayer = new MediaPlayer(audio);
-		System.out.println("Creating new audio watchdog");
+		players = new ArrayList<>();
+		for(int x = 0; x < pathList.length; x++)
+		{
+			System.out.println("Current Index: " + x);
+			System.out.println("Current Song: " + pathList[x]);
+			System.out.println("Creating Player with song " + pathList[x] + " and index " + x);
+			players.add(createPlayer(x));
+		}
 	}
 	
-	public void setCurrentpath(int index)
+	private MediaPlayer createPlayer(int index)
 	{
-		currentPath = AudioWatchDog.class.getResource(pathList[index]).toString();
-	}
-	
-	public String getCurrentpath()
-	{
-		return currentPath;
-	}
-	
-	public void changeMedia()
-	{
-		audio = null;
-		audio = new Media(currentPath);
-	}
-	
-	public Media getMedia()
-	{
-		return audio;
-	}
-	
-	public void play()
-	{
-		mediaPlayer = null;
-		mediaPlayer = new MediaPlayer(audio);
-		mediaPlayer.play();
+		System.out.println("Current source file: " + AudioWatchDog.class.getResource(pathList[index].toString()));
+		String source = AudioWatchDog.class.getResource(pathList[index]).toString();
+		final Media media = new Media(source);
+		final MediaPlayer player = new MediaPlayer(media);
+		return player;
 	}
 }
 

@@ -21,19 +21,9 @@ public class AudioEngine extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception 
 	{	
-		awd = new AudioWatchDog(0);
-		awd.play();
-		Scanner scan = new Scanner(System.in);
-		int choice = scan.nextInt();
-		switch(choice)
-		{
-		case 1:
-			awd.setCurrentpath(1);
-			awd.changeMedia();
-			awd.play();
-		}
-
-	} 
+		awd = new AudioWatchDog();
+		System.out.println("awd created");
+	}
 }
 
 //The following code is for debugging purpose only
@@ -43,12 +33,12 @@ Media soundFile = new Media(new File(filePath).toURI().toString());
 mediaPlayer = new MediaPlayer(soundFile);
 mediaPlayer.play();
 
-			mediaPlayer.setOnEndOfMedia(new Runnable() 
-			{
-				public void run()
-				{
-					mediaPlayer.seek(Duration.ZERO);
-				}
-			});
-			mediaPlayer.setAutoPlay(true); 
+mediaPlayer.setOnEndOfMedia(new Runnable() 
+	{
+		public void run()
+		{
+			mediaPlayer.seek(Duration.ZERO);
+		}
+	});
+	mediaPlayer.setAutoPlay(true); 
 */

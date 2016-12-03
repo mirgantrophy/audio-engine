@@ -4,21 +4,11 @@
 package com.mirgantrophy.audioengine.handler;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -26,7 +16,7 @@ import javafx.scene.media.MediaView;
 public class AudioWatchDog
 {
 	private List<MediaPlayer> players;
-	private MediaView viewer;
+	private final MediaView viewer;
 	private String[] pathList = new String[51];
 	public AudioWatchDog() throws IOException
 	{
@@ -37,6 +27,7 @@ public class AudioWatchDog
 			players.add(createPlayer(x));
 		}
 		System.out.println("awd created");
+		viewer = new MediaView();
 	}
 	
 	private MediaPlayer createPlayer(int index)
@@ -58,5 +49,19 @@ public class AudioWatchDog
 			pathList[x] = line;
 			x++;
 		}
+	}
+	
+	public void play()
+	{
+		viewer.setMediaPlayer(players.get(0));
+		viewer.getMediaPlayer().play();
+		viewer.getMediaPlayer().setOnEndOfMedia(new Runnable() 
+		{
+			public void run()
+			{
+				viewer.setMediaPlayer(players.get(1));
+				viewer.getMediaPlayer().play();
+			}
+		});
 	}
 }
